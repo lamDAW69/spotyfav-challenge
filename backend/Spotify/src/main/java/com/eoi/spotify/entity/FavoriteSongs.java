@@ -16,10 +16,10 @@ public class FavoriteSongs {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id", nullable = false) // Almacenamos solo el ID del usuario
+    private Integer userId; // El ID del usuario (no la entidad completa)
 
-    @Column (name = "song_id", nullable = false) //This is @Column, not @JoinColumn because it is a column, not a relationship
     private Integer songId;
+    private String songName;
+
 }

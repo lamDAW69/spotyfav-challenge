@@ -25,6 +25,6 @@ public class User {
 
     //Relationship to FavSong
 
-    @OneToMany(mappedBy = "User", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "User", cascade = CascadeType.ALL, fetch = FetchType.LAZY) //This is the relationship between User and FavSong cascadetype means that if we delete a user we delete all the favsong of that user
     private Set<FavoriteSongs> favoriteSongs;
 }
