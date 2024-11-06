@@ -9,17 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "usuariocancion")
+@Table(name = "favorite_song")
 public class FavoriteSongs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "user_id", nullable = false) // Almacenamos solo el ID del usuario
-    private Integer userId; // El ID del usuario (no la entidad completa)
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
 
     private Integer songId;
     private String songName;
-
 }

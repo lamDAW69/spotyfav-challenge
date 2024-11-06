@@ -2,6 +2,7 @@ package com.eoi.spotify.service;
 
 
 import com.eoi.spotify.entity.User;
+import com.eoi.spotify.projection.UserProjection;
 import com.eoi.spotify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return ur.findAll();
+    }
+
+    public List<UserProjection> getAllProjectedUsers() {
+        return ur.findAllUsersProjected();
     }
 
     public Optional<User> getUserById(int id) {
