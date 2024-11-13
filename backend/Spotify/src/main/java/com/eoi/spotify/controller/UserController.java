@@ -5,9 +5,7 @@ import com.eoi.spotify.entity.User;
 import com.eoi.spotify.projection.UserProjection;
 import com.eoi.spotify.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +26,25 @@ public class UserController {
     public List<UserProjection> getAllProjectedUsers() {
         return us.getAllProjectedUsers();
     }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable int id) {
+        return us.getUserById(id);
+    }
+    //Insert a new User
+    @PostMapping
+    public User insertUser(@RequestBody User u) {
+        return us.insertUser(u);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@RequestBody User u, @PathVariable int id) {
+        return us.updateUser(u , id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUserById(@PathVariable int id) {
+        us.deleteUserById(id);
+    }
+
 }
