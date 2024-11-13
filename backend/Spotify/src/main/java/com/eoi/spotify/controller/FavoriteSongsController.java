@@ -22,11 +22,13 @@ public class FavoriteSongsController {
 
     }
 
-
     //?songName={name}&userId={id}"} that's how you should call it
     @GetMapping({"/"})
     public List<UserFavSongProjection> getFavoriteSongsByName(@RequestParam("songName") String name, @RequestParam("userId") int id) {
         return fss.getFavoriteSongByName(name, id);
     }
+    /*Pending*/
+    @PostMapping
 
+    @DeleteMapping
 }
