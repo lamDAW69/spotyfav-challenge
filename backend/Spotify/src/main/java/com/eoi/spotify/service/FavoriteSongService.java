@@ -52,11 +52,8 @@ public class FavoriteSongService {
     }
 
     public List<UserFavSongProjection> getAllFavoriteSongsByUser(int userId) {
-        return fsr.(userId);
+        return fsr.findByUserId(userId);
     }
-
-
-
 
 
 }
