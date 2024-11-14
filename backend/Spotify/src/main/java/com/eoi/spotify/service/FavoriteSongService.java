@@ -4,9 +4,12 @@ package com.eoi.spotify.service;
 import com.eoi.spotify.entity.FavoriteSongs;
 import com.eoi.spotify.projection.UserFavSongProjection;
 import com.eoi.spotify.repository.FavoriteSongRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class FavoriteSongService {
     private final UserService us;
 
 
-    // Save a favorite song
+    // ESTE JOSEP HAY QUE ARREGLARLO
     public FavoriteSongs saveFavoriteSong(Integer userId, Integer songId) {
         if (us.getUserById(userId) == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
@@ -46,14 +49,20 @@ public class FavoriteSongService {
         return songsByUser;
     }
 
+
     public List<UserFavSongProjection> getFavoriteSongByName(String songName, Integer userId) {
 
         return fsr.findBySongNameAndUserId(songName, userId);
     }
 
+
     public List<UserFavSongProjection> getAllFavoriteSongsByUser(int userId) {
         return fsr.findByUserId(userId);
     }
 
-
+    //Delete a favorite song completely WORKING!!
+    @Transactional
+    public void deleteFavoriteSong(int songId, int userId) {
+        fsr.deleteByIdAndUserId(songId, userId);
+    }
 }
