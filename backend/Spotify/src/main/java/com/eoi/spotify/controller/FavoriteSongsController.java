@@ -16,19 +16,40 @@ public class FavoriteSongsController {
 
     private final FavoriteSongService fss;
 
+    //?id={id} Get all favorite songs from a user
     @GetMapping({"/id/{id}"})
     public List<UserFavSongProjection> getAllFavoriteSongsByUser(@PathVariable int id) {
         return fss.getAllFavoriteSongsByUser(id);
 
     }
 
-    //?songName={name}&userId={id}"} that's how you should call it
+    //?songName={name}&userId={id}"} Get a favorite song by name
     @GetMapping({"/"})
     public List<UserFavSongProjection> getFavoriteSongsByName(@RequestParam("songName") String name, @RequestParam("userId") int id) {
         return fss.getFavoriteSongByName(name, id);
     }
-    /*Pending*/
-    @PostMapping
 
-    @DeleteMapping
+    //?id={id}&userId={userId} Delete a favorite song from a user
+    @DeleteMapping({"/{id}"})
+    public void deleteFavoriteSong(@PathVariable int id, @RequestParam("userId") int userId) {
+        fss.deleteFavoriteSong(id, userId);
+    }
+
+    //?songId={songId}&userId={userId}
+//    @PostMapping({"/"})
+//    public FavoriteSongs saveFavoriteSong(@RequestParam("songId") int songId, @RequestParam("userId")  int userId) {
+//        return fss.saveFavoriteSong(userId, songId);
+//    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public insertFavoriteSong postMethodName(@RequestBody @Valid EventoDTO eInsert) {
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        EventoSinUsuarios e = eventosService.insert(eInsert);
+        Evento eResp = new Evento(e.getId(), e.getTitulo(), e.getDescripcion(), e.getPrecio(), e.getFecha(),
+                baseUrl + "/" + e.getImagen(), null);
+        return new RespuestaEventoDTO(eResp);
+    }
+
+
 }
