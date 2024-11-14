@@ -1,3 +1,14 @@
+const urlUsers = 'http://localhost:8080/users/1';
+
+// Funciones para Usuarios
+async function cargarUsuario() {
+    let response = await fetch(urlUsers);
+    response = await response.json();
+    document.getElementById('name').innerText = response.name;
+}
+
+cargarUsuario();
+
 document.getElementById('toggleTheme').addEventListener('click', () => {
     const body = document.body;
     const themeIcon = document.getElementById('themeIcon');
@@ -10,3 +21,4 @@ document.getElementById('toggleTheme').addEventListener('click', () => {
         themeIcon.classList.replace('bi-sun-fill', 'bi-moon-fill');
     }
 });
+
