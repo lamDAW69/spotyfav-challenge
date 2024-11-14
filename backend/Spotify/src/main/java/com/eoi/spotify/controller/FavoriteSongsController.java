@@ -1,10 +1,12 @@
 package com.eoi.spotify.controller;
 
 import com.eoi.spotify.entity.FavoriteSongs;
+import com.eoi.spotify.entity.User;
 import com.eoi.spotify.projection.UserFavSongProjection;
 import com.eoi.spotify.repository.FavoriteSongRepository;
 import com.eoi.spotify.service.FavoriteSongService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,15 +43,17 @@ public class FavoriteSongsController {
 //        return fss.saveFavoriteSong(userId, songId);
 //    }
 
+    //Insert a new Song with user ID
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public insertFavoriteSong postMethodName(@RequestBody @Valid EventoDTO eInsert) {
-        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        EventoSinUsuarios e = eventosService.insert(eInsert);
-        Evento eResp = new Evento(e.getId(), e.getTitulo(), e.getDescripcion(), e.getPrecio(), e.getFecha(),
-                baseUrl + "/" + e.getImagen(), null);
-        return new RespuestaEventoDTO(eResp);
+    public FavoriteSongs insertSong(@RequestBody FavoriteSongs fs) {
+        return fss.saveFavoriteSong( fs.getSongId(), fs);
     }
 
+    //Toy metiendo cosas
+    //Sigues cocinando no?
+    //Si, estoy haciendo un arroz
+    //Que rico
+    //Si, me encanta cocinar
+    //A mi
 
 }
