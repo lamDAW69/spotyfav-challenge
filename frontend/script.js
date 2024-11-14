@@ -9,13 +9,6 @@ async function cargarUsuario() {
     document.getElementById('name').innerText = response.name;
     document.getElementById('mail').innerText = response.mail;
 
-    /*
-      "id": 1,
-      "userId": 1,
-      "songId": 101,
-      "songName": "Song 1 by User 1" 
-    */
-
     tableSongs.innerHTML = '';
 
     response.favoriteSongs.forEach(song => { 
