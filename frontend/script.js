@@ -39,8 +39,8 @@ async function cargarUsuario() {
     response.favoriteSongs.forEach(song => { 
         const row = document.createElement('tr');
 
-        const idCell = document.createElement('td'); 
-        idCell.textContent = song.id;
+        // const idCell = document.createElement('td'); 
+        // idCell.textContent = song.id;
         const userIdCell = document.createElement('td');
         userIdCell.textContent = song.userId;
         const songIdCell = document.createElement('td');
@@ -48,7 +48,7 @@ async function cargarUsuario() {
         const songNameCell = document.createElement('td');
         songNameCell.textContent = song.songName;
 
-        row.appendChild(idCell);
+        // row.appendChild(idCell);
         row.appendChild(userIdCell);
         row.appendChild(songIdCell);
         row.appendChild(songNameCell);

@@ -19,8 +19,14 @@
             display: flex;
             width: 100%;
         }
-        .left, .right {
+        .left {
             width: 20%;
+            padding: 10px;
+            box-sizing: border-box;
+    
+        }
+        .right {
+            width: 30%;
             padding: 10px;
             box-sizing: border-box;
     
@@ -87,7 +93,7 @@
             </table>
         </div>
 
-        <div>
+        <div class="right">
             <h2 class="mb-4">Canciones favoritas</h2>
             <table class="table table-hover mt-3" id="tableSongsDatabase">
                 <thead>
@@ -95,7 +101,7 @@
                         <!-- <th scope="col">#</th> -->
                         <th scope="col">Song</th>
                         <th scope="col">Artist</th>
-                        <th scope="col">Album</th>
+                        <th scope="col">songName</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
