@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    height: 100vh;
+}
+.container {
+    display: flex;
+    width: 100%;
+}
+.left {
+    width: 20%;
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+.right {
+    width: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+.center {
+    width: 60%;
+    padding: 20px;
+    box-sizing: border-box;
+
+}
