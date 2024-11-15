@@ -25,7 +25,7 @@ public class FavoriteSongsController {
 
     }
 
-    //get all
+    //get favorite songs from all users
     @GetMapping("/all")
     public List<FavoriteSongs> getAllFavoriteSongs() {
         return fss.getAllFavoriteSongs();
