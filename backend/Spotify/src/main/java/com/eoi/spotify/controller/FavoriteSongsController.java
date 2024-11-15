@@ -25,10 +25,23 @@ public class FavoriteSongsController {
 
     }
 
+    //get all
+    @GetMapping("/all")
+    public List<FavoriteSongs> getAllFavoriteSongs() {
+        return fss.getAllFavoriteSongs();
+
+    }
+
     //?songName={name}&userId={id}"} Get a favorite song by name
     @GetMapping({"/"})
     public List<UserFavSongProjection> getFavoriteSongsByName(@RequestParam("songName") String name, @RequestParam("userId") int id) {
         return fss.getFavoriteSongByName(name, id);
+    }
+
+    //?songName={name}&userId={id}"} Get a favorite song by name
+    @GetMapping({"/songId/{id}"})
+    public FavoriteSongs getFavoriteSongsById(@PathVariable int id) {
+        return fss.getFavoriteSongById(id);
     }
 
     //?id={id}&userId={userId} Delete a favorite song from a user
@@ -37,23 +50,13 @@ public class FavoriteSongsController {
         fss.deleteFavoriteSong(id, userId);
     }
 
-    //?songId={songId}&userId={userId}
-//    @PostMapping({"/"})
-//    public FavoriteSongs saveFavoriteSong(@RequestParam("songId") int songId, @RequestParam("userId")  int userId) {
-//        return fss.saveFavoriteSong(userId, songId);
-//    }
 
     //Insert a new Song with user ID
     @PostMapping
     public FavoriteSongs insertSong(@RequestBody FavoriteSongs fs) {
-        return fss.saveFavoriteSong( fs.getSongId(), fs);
+        return fss.saveFavoriteSong( fs);
     }
 
-    //Toy metiendo cosas
-    //Sigues cocinando no?
-    //Si, estoy haciendo un arroz
-    //Que rico
-    //Si, me encanta cocinar
-    //A mi
+
 
 }

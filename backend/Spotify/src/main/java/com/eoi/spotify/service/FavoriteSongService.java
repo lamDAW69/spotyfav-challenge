@@ -23,15 +23,15 @@ public class FavoriteSongService {
     private final UserService us;
 
 
-    // ESTE JOSEP HAY QUE ARREGLARLO
-    public FavoriteSongs saveFavoriteSong(Integer userId, Integer songId) {
-        if (us.getUserById(userId) == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        FavoriteSongs fs = new FavoriteSongs();
-        fs.setUserId(userId);
-        fs.setSongId(songId);
-        return fsr.save(fs);
+    //Get all favorite song from all users
+    public List<FavoriteSongs> getAllFavoriteSongs() {
+        return fsr.findAll();
+    }
+
+    //Insert a new favorite song
+    public FavoriteSongs saveFavoriteSong(FavoriteSongs favoriteSong) {
+        FavoriteSongs fs = fsr.save(favoriteSong);
+        return fsr.findById(fs.getId()).get();
     }
 
     ///Select all favorite songs from a user
@@ -47,6 +47,12 @@ public class FavoriteSongService {
         });
 
         return songsByUser;
+    }
+
+    //Get favorite song by id
+    public FavoriteSongs getFavoriteSongById(Integer id) {
+
+        return fsr.findById(id).get();
     }
 
 
