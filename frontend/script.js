@@ -8,24 +8,34 @@ const tableSongsSpotify = document.querySelector("#tableSongsSpotify tbody");
 let limit = 50;
 let offset = 0;
 
-
 // Funciones para Usuarios
 async function cargarUsuario() {
   let response = await fetch(urlUsers);
   response = await response.json();
-  document.getElementById('name').innerText = response.name;
-  document.getElementById('mail').innerText = response.mail;
+  document.getElementById("name").innerText = response.name;
+  document.getElementById("mail").innerText = response.mail;
 
   tableSongsDatabase.innerHTML = "";
 
   response.favoriteSongs.forEach((song) => {
     const row = document.createElement("tr");
     const likeButton = document.createElement("button");
-    likeButton.textContent = '💜';
-    likeButton.className = "btn-outline-dark";
+    likeButton.textContent = "💜";
+    likeButton.className = "btn btn-outline-dark";
 
+    // Añadir event listener al botón
+    likeButton.addEventListener("click", function () {
+      const row = this.closest("tr"); // Obtener la fila más cercana
+      const cells = row.querySelectorAll("td"); // Obtener todas las celdas de la fila
+      const rowData = Array.from(cells).map((cell) => cell.textContent); // Obtener el texto de cada celda
+      console.log(rowData);
+       unlikeSong(rowData[1]);
+    });
+
+    const buttonCell = document.createElement("td");
+    buttonCell.appendChild(likeButton);
     const idCell = document.createElement("td");
-    idCell.appendChild(likeButton);
+    idCell.textContent = song.id;
     const userIdCell = document.createElement("td");
     userIdCell.textContent = song.songName;
     const songIdCell = document.createElement("td");
@@ -33,6 +43,7 @@ async function cargarUsuario() {
     const songNameCell = document.createElement("td");
     songNameCell.textContent = song.album;
 
+    row.appendChild(buttonCell);
     row.appendChild(idCell);
     row.appendChild(userIdCell);
     row.appendChild(songIdCell);
@@ -151,22 +162,20 @@ function formularioListener() {
             console.log("---------------------------");
 
             const likeButton = document.createElement("button");
-            likeButton.textContent = '💜';
+            likeButton.textContent = "💜";
             likeButton.className = "btn btn-outline-dark";
-            
+
             // Añadir event listener al botón
-            likeButton.addEventListener('click', function() {
-                const row = this.closest('tr'); // Obtener la fila más cercana
-                const cells = row.querySelectorAll('td'); // Obtener todas las celdas de la fila
-                const rowData = Array.from(cells).map(cell => cell.textContent); // Obtener el texto de cada celda
-                console.log(rowData);
-                likeSong(rowData);
-                
+            likeButton.addEventListener("click", function () {
+              const row = this.closest("tr"); // Obtener la fila más cercana
+              const cells = row.querySelectorAll("td"); // Obtener todas las celdas de la fila
+              const rowData = Array.from(cells).map((cell) => cell.textContent); // Obtener el texto de cada celda
+              console.log(rowData);
+              likeSong(rowData);
             });
-            
-            const idCell = document.createElement("td");
-            idCell.appendChild(likeButton);
-            idCell.appendChild(likeButton);
+
+            const likeCell = document.createElement("td");
+            likeCell.appendChild(likeButton);
             const songNameCell = document.createElement("td");
             songNameCell.textContent = song.name;
             const artistCell = document.createElement("td");
@@ -174,7 +183,7 @@ function formularioListener() {
             const albumCell = document.createElement("td");
             albumCell.textContent = song.album;
 
-            row.appendChild(idCell);
+            row.appendChild(likeCell);
             row.appendChild(songNameCell);
             row.appendChild(artistCell);
             row.appendChild(albumCell);
@@ -195,15 +204,13 @@ function formularioListener() {
 }
 
 async function likeSong(song) {
-
-    
-    const songPost = {
-        userId: idUser,
-        songName: song[1],
-        artist: song[2],
-        album: song[3]
-    }
-    console.log(song[1]);
+  const songPost = {
+    userId: idUser,
+    songName: song[1],
+    artist: song[2],
+    album: song[3],
+  };
+  console.log(song[1]);
 
   const response = await fetch(urlSongs, {
     method: "POST",
@@ -222,6 +229,24 @@ async function likeSong(song) {
   const data = await response.json();
   console.log(data);
 }
+
+async function unlikeSong(idSong) {
+    const urlDeleteSong = `http://localhost:8080/favoritesongs/id/${idSong}`; // Asegúrate de que esta URL sea correcta
+  
+    const response = await fetch(urlDeleteSong, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    } else {
+      console.log(`Song with ID ${idSong} deleted successfully.`);
+      cargarUsuario(); // Recargar la lista de canciones favoritas
+    }
+  }
 
 cargarUsuario();
 formularioListener();

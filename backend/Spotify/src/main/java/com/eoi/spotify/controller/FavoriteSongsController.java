@@ -48,6 +48,7 @@ public class FavoriteSongsController {
 
     //?id={id}
     @DeleteMapping({"/id/{id}"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFavoriteSong(@PathVariable int id) {
         fss.deleteSongById(id);
     }
