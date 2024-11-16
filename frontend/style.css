@@ -15,18 +15,20 @@ body {
 
 }
 .right {
-    width: 30%;
+    width: 40%;
     padding: 10px;
     box-sizing: border-box;
 
 }
 .center {
-    width: 60%;
-    padding: 20px;
+    width: 50%;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     justify-content: center;
-    align-items: center;
     margin: 0 auto; /* Para centrar horizontalmente */
+}
+
+h1, h2 {
+    font-family: 'Montserrat', sans-serif;
 }

@@ -12,8 +12,8 @@ let offset = 0;
 async function cargarUsuario() {
   let response = await fetch(urlUsers);
   response = await response.json();
-  document.getElementById("name").innerText = response.name;
-  document.getElementById("mail").innerText = response.mail;
+//   document.getElementById("name").innerText = response.name;
+//   document.getElementById("mail").innerText = response.mail;
 
   tableSongsDatabase.innerHTML = "";
 
