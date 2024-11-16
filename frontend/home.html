@@ -44,29 +44,18 @@
     </div>
     <div class="center" style="height: 100vh">
       <h1 class="mb-4">Spotifav</h1>
-      <form id="specs" class="w-100 mb-3">
-        <div
-          class="row form-group d-flex justify-content-center align-items-center"
-        >
-          <div class="d-flex align-items-center">
-            <input
-              class="form-control"
-              id="query"
-              placeholder="Cuéntame... ¿Qué quieres oír?"
-              maxlength="55"
-            />
-          </div>
-          <div class="w-50 d-flex justify-content-center align-items-center">
-            <button
-              id="buscar-btn"
-              type="submit"
-              class="btn btn-primary w-50 my-3"
-            >
-              Que puedo oír!
-            </button>
-          </div>
+      <form id="specs" class="w-100">
+        <div class="row form-group d-flex justify-content-center align-items-center">
+            
+            <div class="col-md-4 mb-3">
+                <input class="form-control" id="prompt" placeholder="Cuéntame... ¿Qué quieres oír? 😏"
+                    maxlength="55">
+            </div>
+            <div class="w-50 d-flex justify-content-center">
+                <button id="recomendar-btn" type="submit" class="btn btn-primary w-50">Que puedo oír!</button>
+            </div>
         </div>
-      </form>
+    </form>
       <h3>Canciones encontradas</h3>
       <table class="table table-hover mt-3" id="tableSongsSpotify">
         <thead>

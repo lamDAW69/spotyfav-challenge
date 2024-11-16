@@ -31,8 +31,8 @@ function anteriorPagina(){
 async function cargarUsuario() {
     let response = await fetch(urlUsers);
     response = await response.json();
-    document.getElementById('name').innerText = response.name;
-    document.getElementById('mail').innerText = response.mail;
+    // document.getElementById('name').innerText = response.name;
+    // document.getElementById('mail').innerText = response.mail;
 
     tableSongsDatabase.innerHTML = '';
 
@@ -128,61 +128,122 @@ async function searchSpotifyTracks(query, accessToken) {
     }
 }
 
+function formularioListener() {
+    const formulario = document.getElementById("specs");
+    
 
-const objetoCancion = {
-    id: 0,
-    userId: 1,
-    songId: '',
-    songName: ''
+    document.getElementById('prompt').addEventListener('input', function (event) {
+        let value = event.target.value;
+        if (value.length > 0) {
+            event.target.value = value.charAt(0).toUpperCase() + value.slice(1);
+        }
+    });
+
+    formulario.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const query = document.getElementById('prompt');
+        tableSongsSpotify.innerHTML = '';
+        getSpotifyAccessToken().then(token => {
+            console.log('Token guardado:', token);
+        
+            // Ejemplo de uso
+        (async () => {
+            
+ 
+            const accessToken = token; // Sustituye con el token válido
+            const tracks = await searchSpotifyTracks(query.value, accessToken);
+           // Extraer solo los IDs de las canciones
+          
+            if (tracks) {
+        
+                tracks.forEach(track => {
+                    const song = track;
+                    const row = document.createElement('tr');
+
+                    console.log(`ID: ${track.id}`);
+                    console.log(`Canción: ${track.name}`);
+                    console.log(`Artista: ${track.artist}`);
+                    console.log(`Álbum: ${track.album}`);
+                    console.log(`URL: ${track.url}`);
+                    console.log('---------------------------');
+            
+                    // const idCell = document.createElement('td'); 
+                    // idCell.textContent = song.id;
+                    const songNameCell = document.createElement('td');
+                    songNameCell.textContent = song.name;
+                    const artistCell = document.createElement('td');
+                    artistCell.textContent = song.artist;
+                    const albumCell = document.createElement('td');
+                    albumCell.textContent = song.album;
+            
+                    // row.appendChild(idCell);
+                    row.appendChild(songNameCell);
+                    row.appendChild(artistCell);
+                    row.appendChild(albumCell);
+            
+                    tableSongsSpotify.appendChild(row);
+
+                });
+            }
+        })();
+        });
+    });
+
+    // formulario.addEventListener('keypress', function (event) {
+    //     if (event.key === 'Enter') {
+    //         event.preventDefault(); // Evita que se envíe el formulario
+    //         document.getElementById('recomendar-btn').click(); // Simula un clic en el botón
+    //     }
+    // });
 }
 
 
 
-
 cargarUsuario();
+formularioListener();
 // Llamar la función para obtener el token
-getSpotifyAccessToken().then(token => {
-    console.log('Token guardado:', token);
+// getSpotifyAccessToken().then(token => {
+//     console.log('Token guardado:', token);
 
-    // Ejemplo de uso
-(async () => {
-    const query = 'hello'; // Cambia por la canción que desees buscar
-    const accessToken = token; // Sustituye con el token válido
+//     // Ejemplo de uso
+// (async () => {
+//     const query = 'hello'; // Cambia por la canción que desees buscar
+//     const accessToken = token; // Sustituye con el token válido
 
-    const tracks = await searchSpotifyTracks(query, accessToken);
-   // Extraer solo los IDs de las canciones
+//     const tracks = await searchSpotifyTracks(query, accessToken);
+//    // Extraer solo los IDs de las canciones
   
-    if (tracks) {
+//     if (tracks) {
 
-        tracks.forEach(track => {
-            const song = track;
-            const row = document.createElement('tr');
+//         tracks.forEach(track => {
+//             const song = track;
+//             const row = document.createElement('tr');
     
-            // const idCell = document.createElement('td'); 
-            // idCell.textContent = song.id;
-            const songNameCell = document.createElement('td');
-            songNameCell.textContent = song.name;
-            const artistCell = document.createElement('td');
-            artistCell.textContent = song.artist;
-            const albumCell = document.createElement('td');
-            albumCell.textContent = song.album;
+//             // const idCell = document.createElement('td'); 
+//             // idCell.textContent = song.id;
+//             const songNameCell = document.createElement('td');
+//             songNameCell.textContent = song.name;
+//             const artistCell = document.createElement('td');
+//             artistCell.textContent = song.artist;
+//             const albumCell = document.createElement('td');
+//             albumCell.textContent = song.album;
     
-            // row.appendChild(idCell);
-            row.appendChild(songNameCell);
-            row.appendChild(artistCell);
-            row.appendChild(albumCell);
+//             // row.appendChild(idCell);
+//             row.appendChild(songNameCell);
+//             row.appendChild(artistCell);
+//             row.appendChild(albumCell);
     
-            tableSongsSpotify.appendChild(row);
-            console.log(`ID: ${track.id}`);
-            console.log(`Canción: ${track.name}`);
-            console.log(`Artista: ${track.artist}`);
-            console.log(`Álbum: ${track.album}`);
-            console.log(`URL: ${track.url}`);
-            console.log('---------------------------');
-        });
-    }
-})();
-});
+//             tableSongsSpotify.appendChild(row);
+//             console.log(`ID: ${track.id}`);
+//             console.log(`Canción: ${track.name}`);
+//             console.log(`Artista: ${track.artist}`);
+//             console.log(`Álbum: ${track.album}`);
+//             console.log(`URL: ${track.url}`);
+//             console.log('---------------------------');
+//         });
+//     }
+// })();
+// });
 
 
 
