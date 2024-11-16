@@ -44,10 +44,10 @@
     </div>
     <div class="center" style="height: 100vh">
       <h1 class="mb-4">Spotifav</h1>
-      <form id="specs" class="w-100">
+      <form id="specs" class="w-100 mb-3">
         <div class="row form-group d-flex justify-content-center align-items-center">
             
-            <div class="col-md-4 mb-3">
+            <div class="mb-3">
                 <input class="form-control" id="prompt" placeholder="Cuéntame... ¿Qué quieres oír? 😏"
                     maxlength="55">
             </div>
@@ -60,6 +60,7 @@
       <table class="table table-hover mt-3" id="tableSongsSpotify">
         <thead>
           <tr>
+            <th scope="col">Like</th>
             <th scope="col">Song</th>
             <th scope="col">Artist</th>
             <th scope="col">Album</th>
@@ -74,7 +75,7 @@
       <table class="table table-hover mt-3" id="tableSongsDatabase">
         <thead>
           <tr>
-            <!-- <th scope="col">#</th> -->
+            <th scope="col">Unlike</th>
             <th scope="col">Song</th>
             <th scope="col">Artist</th>
             <th scope="col">Album</th>
