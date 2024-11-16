@@ -27,7 +27,6 @@ DROP TABLE IF EXISTS `favorite_song`;
 CREATE TABLE `favorite_song` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
-  `song_id` int DEFAULT NULL,
   `song_name` varchar(255) DEFAULT NULL,
   `artist` varchar(255) DEFAULT NULL,
   `album` varchar(255) DEFAULT NULL,
@@ -71,12 +70,12 @@ INSERT INTO `user` (image_user, password_user, mail_user, name_user) VALUES
 ('https://example.com/images/user2.jpg', 'securepass', 'user2@example.com', 'Ana Gomez'),
 ('https://example.com/images/user3.jpg', 'mypassword', 'user3@example.com', 'Carlos Ruiz');
 
-INSERT INTO `favorite_song` (user_id, song_id, song_name, artist, album) VALUES
-(1, 101, 'Imagine', 'John Lennon', 'Imagine'),
-(1, 102, 'Bohemian Rhapsody', 'Queen', 'A Night at the Opera'),
-(2, 103, 'Billie Jean', 'Michael Jackson', 'Thriller'),
-(2, 104, 'Shape of You', 'Ed Sheeran', '÷'),
-(3, 105, 'Yesterday', 'The Beatles', 'Help!'),
-(3, 106, 'Thriller', 'Michael Jackson', 'Thriller');
+INSERT INTO `favorite_song` (user_id, song_name, artist, album) VALUES
+(1, 'Imagine', 'John Lennon', 'Imagine'),
+(1, 'Bohemian Rhapsody', 'Queen', 'A Night at the Opera'),
+(2, 'Billie Jean', 'Michael Jackson', 'Thriller'),
+(2, 'Shape of You', 'Ed Sheeran', '÷'),
+(3, 'Yesterday', 'The Beatles', 'Help!'),
+(3, 'Thriller', 'Michael Jackson', 'Thriller');
 
 

@@ -66,9 +66,15 @@ public class FavoriteSongService {
         return fsr.findByUserId(userId);
     }
 
-    //Delete a favorite song completely WORKING!!
-    @Transactional
-    public void deleteFavoriteSong(int songId, int userId) {
-        fsr.deleteByIdAndUserId(songId, userId);
+
+    //Delete a favorite song by id
+    public void deleteSongById(Integer id) {
+        fsr.deleteById(id);
     }
+
+//    //Delete a favorite song completely WORKING!!
+//    @Transactional
+//    public void deleteFavoriteSong(int songId, int userId) {
+//        fsr.deleteByIdAndUserId(songId, userId);
+//    }
 }

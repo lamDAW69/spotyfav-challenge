@@ -14,8 +14,10 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/favoritesongs")
+@CrossOrigin(origins = "*")
 public class FavoriteSongsController {
 
+//  http://localhost:8080/favoritesongs
     private final FavoriteSongService fss;
 
     //?id={id} Get all favorite songs from a user
@@ -44,10 +46,10 @@ public class FavoriteSongsController {
         return fss.getFavoriteSongById(id);
     }
 
-    //?id={id}&userId={userId} Delete a favorite song from a user
-    @DeleteMapping({"/{id}"})
-    public void deleteFavoriteSong(@PathVariable int id, @RequestParam("userId") int userId) {
-        fss.deleteFavoriteSong(id, userId);
+    //?id={id}
+    @DeleteMapping({"/id/{id}"})
+    public void deleteFavoriteSong(@PathVariable int id) {
+        fss.deleteSongById(id);
     }
 
 

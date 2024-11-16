@@ -1,4 +1,6 @@
-const urlUsers = "http://localhost:8080/users/7";
+const idUser = 6;
+const urlUsers = `http://localhost:8080/users/${idUser}`;
+const urlSongs = `http://localhost:8080/favoritesongs`;
 
 const tableSongsDatabase = document.querySelector("#tableSongsDatabase tbody");
 const tableSongsSpotify = document.querySelector("#tableSongsSpotify tbody");
@@ -6,26 +8,13 @@ const tableSongsSpotify = document.querySelector("#tableSongsSpotify tbody");
 let limit = 50;
 let offset = 0;
 
-// function siguientePagina(){
-//     if(offset <= 1950){
-//         offset += 50;
-//         obtenerCancionesFavoritas();
-//     }
-// }
-
-// function anteriorPagina(){
-//     if(offset >= 50){
-//         offset -= 50;
-//         obtenerCancionesFavoritas();
-//     }
-// }
 
 // Funciones para Usuarios
 async function cargarUsuario() {
   let response = await fetch(urlUsers);
   response = await response.json();
-  // document.getElementById('name').innerText = response.name;
-  // document.getElementById('mail').innerText = response.mail;
+  document.getElementById('name').innerText = response.name;
+  document.getElementById('mail').innerText = response.mail;
 
   tableSongsDatabase.innerHTML = "";
 
@@ -161,12 +150,22 @@ function formularioListener() {
             console.log(`URL: ${track.url}`);
             console.log("---------------------------");
 
-            // Crear el botón
             const likeButton = document.createElement("button");
             likeButton.textContent = '💜';
-            likeButton.className = "btn-outline-dark";
-
+            likeButton.className = "btn btn-outline-dark";
+            
+            // Añadir event listener al botón
+            likeButton.addEventListener('click', function() {
+                const row = this.closest('tr'); // Obtener la fila más cercana
+                const cells = row.querySelectorAll('td'); // Obtener todas las celdas de la fila
+                const rowData = Array.from(cells).map(cell => cell.textContent); // Obtener el texto de cada celda
+                console.log(rowData);
+                likeSong(rowData);
+                
+            });
+            
             const idCell = document.createElement("td");
+            idCell.appendChild(likeButton);
             idCell.appendChild(likeButton);
             const songNameCell = document.createElement("td");
             songNameCell.textContent = song.name;
@@ -193,6 +192,35 @@ function formularioListener() {
   //         document.getElementById('recomendar-btn').click(); // Simula un clic en el botón
   //     }
   // });
+}
+
+async function likeSong(song) {
+
+    
+    const songPost = {
+        userId: idUser,
+        songName: song[1],
+        artist: song[2],
+        album: song[3]
+    }
+    console.log(song[1]);
+
+  const response = await fetch(urlSongs, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(songPost),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status}`);
+  } else {
+    cargarUsuario();
+  }
+
+  const data = await response.json();
+  console.log(data);
 }
 
 cargarUsuario();
