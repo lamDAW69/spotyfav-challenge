@@ -1,49 +1,82 @@
-create schema IF NOT EXISTS spotyfav;
+CREATE DATABASE  IF NOT EXISTS `spotyfav` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `spotyfav`;
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+--
+-- Host: localhost    Database: spotyfav
+-- ------------------------------------------------------
+-- Server version	8.0.30
 
-USE spotyfav;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE user (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    image_user VARCHAR(255),
-    password_user VARCHAR(255) NOT NULL,
-    mail_user VARCHAR(255) NOT NULL UNIQUE,
-    name_user VARCHAR(255) NOT NULL
-);
+--
+-- Table structure for table `favorite_song`
+--
 
-CREATE TABLE favorite_song(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    song_id INT,
-    song_name NVARCHAR(30),
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);
+DROP TABLE IF EXISTS `favorite_song`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `favorite_song` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `song_id` int DEFAULT NULL,
+  `song_name` varchar(255) DEFAULT NULL,
+  `artist` varchar(255) DEFAULT NULL,
+  `album` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `favorite_song_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO user (id, image_user, password_user, mail_user, name_user) VALUES
-(1, 'img1.jpg', 'password1', 'user1@example.com', 'User1'),
-(2, 'img2.jpg', 'password2', 'user2@example.com', 'User2'),
-(3, 'img3.jpg', 'password3', 'user3@example.com', 'User3'),
-(4, 'img4.jpg', 'password4', 'user4@example.com', 'User4'),
-(5, 'img5.jpg', 'password5', 'user5@example.com', 'User5');
+--
+-- Table structure for table `user`
+--
 
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `image_user` varchar(255) DEFAULT NULL,
+  `password_user` varchar(255) NOT NULL,
+  `mail_user` varchar(255) NOT NULL,
+  `name_user` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mail_user` (`mail_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-INSERT INTO favorite_song (user_id, song_id, song_name) VALUES
-(1, 101, 'Song 1 by User 1'),
-(1, 102, 'Song 2 by User 1'),
-(1, 103, 'Song 3 by User 1'),
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-(2, 201, 'Song 1 by User 2'),
-(2, 202, 'Song 2 by User 2'),
-(2, 203, 'Song 3 by User 2'),
+-- Dump completed on 2024-11-16 11:28:02
 
-(3, 301, 'Song 1 by User 3'),
-(3, 302, 'Song 2 by User 3'),
-(3, 303, 'Song 3 by User 3'),
+INSERT INTO `user` (image_user, password_user, mail_user, name_user) VALUES
+('https://example.com/images/user1.jpg', 'password123', 'user1@example.com', 'Juan Perez'),
+('https://example.com/images/user2.jpg', 'securepass', 'user2@example.com', 'Ana Gomez'),
+('https://example.com/images/user3.jpg', 'mypassword', 'user3@example.com', 'Carlos Ruiz');
 
-(4, 401, 'Song 1 by User 4'),
-(4, 402, 'Song 2 by User 4'),
-(4, 403, 'Song 3 by User 4'),
+INSERT INTO `favorite_song` (user_id, song_id, song_name, artist, album) VALUES
+(1, 101, 'Imagine', 'John Lennon', 'Imagine'),
+(1, 102, 'Bohemian Rhapsody', 'Queen', 'A Night at the Opera'),
+(2, 103, 'Billie Jean', 'Michael Jackson', 'Thriller'),
+(2, 104, 'Shape of You', 'Ed Sheeran', '÷'),
+(3, 105, 'Yesterday', 'The Beatles', 'Help!'),
+(3, 106, 'Thriller', 'Michael Jackson', 'Thriller');
 
-(5, 501, 'Song 1 by User 5'),
-(5, 502, 'Song 2 by User 5'),
-(5, 503, 'Song 3 by User 5');
 
