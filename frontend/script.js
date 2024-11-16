@@ -20,7 +20,7 @@ async function cargarUsuario() {
   response.favoriteSongs.forEach((song) => {
     const row = document.createElement("tr");
     const likeButton = document.createElement("button");
-    likeButton.textContent = "💜";
+    likeButton.textContent = "💔";
     likeButton.className = "btn btn-outline-dark";
 
     // Añadir event listener al botón
