@@ -14,15 +14,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-    private final UserService us; //Service injection
+    private final UserService us;
 
-    //Method to get all users
     @GetMapping
     public List<User> getAllUsers() {
-        return us.getAllUsers();  //Call the method from the service
+        return us.getAllUsers();
     }
 
-    //This one only get the projected users, based on the query on the repository
     @GetMapping("/projected")
     public List<UserProjection> getAllProjectedUsers() {
         return us.getAllProjectedUsers();
@@ -32,7 +30,7 @@ public class UserController {
     public User getUserById(@PathVariable int id) {
         return us.getUserById(id);
     }
-    //Insert a new User
+
     @PostMapping
     public User insertUser(@RequestBody User u) {
         return us.insertUser(u);

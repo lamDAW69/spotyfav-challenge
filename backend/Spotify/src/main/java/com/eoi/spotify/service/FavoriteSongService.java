@@ -23,18 +23,17 @@ public class FavoriteSongService {
     private final UserService us;
 
 
-    //Get all favorite song from all users
     public List<FavoriteSongs> getAllFavoriteSongs() {
         return fsr.findAll();
     }
 
-    //Insert a new favorite song
+
     public FavoriteSongs saveFavoriteSong(FavoriteSongs favoriteSong) {
         FavoriteSongs fs = fsr.save(favoriteSong);
         return fsr.findById(fs.getId()).get();
     }
 
-    ///Select all favorite songs from a user
+
     public List<FavoriteSongs> getFavoriteSongByUser(int userId) {
         if (us.getUserById(userId) == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
@@ -49,7 +48,6 @@ public class FavoriteSongService {
         return songsByUser;
     }
 
-    //Get favorite song by id
     public FavoriteSongs getFavoriteSongById(Integer id) {
 
         return fsr.findById(id).get();
@@ -67,14 +65,8 @@ public class FavoriteSongService {
     }
 
 
-    //Delete a favorite song by id
     public void deleteSongById(Integer id) {
         fsr.deleteById(id);
     }
 
-//    //Delete a favorite song completely WORKING!!
-//    @Transactional
-//    public void deleteFavoriteSong(int songId, int userId) {
-//        fsr.deleteByIdAndUserId(songId, userId);
-//    }
 }

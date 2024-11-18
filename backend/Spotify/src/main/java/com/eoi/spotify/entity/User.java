@@ -19,7 +19,7 @@ public class User {
     @Column(name = "image_user")
     private String image;
 
-    @Column(name ="password_user")  //It needs to have this so that associate with the correct column in the db
+    @Column(name ="password_user")
     private String password;
 
     @Column(name ="mail_user")

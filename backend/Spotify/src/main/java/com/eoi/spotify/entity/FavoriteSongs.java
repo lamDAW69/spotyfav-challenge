@@ -19,8 +19,6 @@ public class FavoriteSongs {
     @Column(name = "user_id", nullable = false)
     private Integer userId;
 
-//    @Column(name = "song_id", nullable = false)
-//    private Integer songId;
     @Column(name = "song_name")
     private String songName;
     @Column(name = "artist")

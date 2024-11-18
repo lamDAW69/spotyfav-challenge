@@ -1,4 +1,4 @@
-const idUser = 6;
+const idUser = 1;
 const urlUsers = `http://localhost:8080/users/${idUser}`;
 const urlSongs = `http://localhost:8080/favoritesongs`;
 
