@@ -35,6 +35,7 @@ public class AuthController {
     @PostMapping("registro")
     @ResponseStatus(HttpStatus.CREATED)
     public RespuestaUsuarioDTO registro(@RequestBody @Valid UsuarioDTO u) throws NoSuchAlgorithmException {
+
         return new RespuestaUsuarioDTO(usuariosService.insert(u));
     }
 

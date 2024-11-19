@@ -18,7 +18,7 @@ public class UsuarioDTO {
     private String correo;
     @NotBlank(message = "El password es obligatorio")
     private String password;
-    @NotBlank(message = "El avatar es obligatorio")
+
     private String avatar;
 
     private List<Song> favoriteSongs;
