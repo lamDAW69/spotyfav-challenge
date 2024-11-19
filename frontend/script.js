@@ -12,8 +12,8 @@ let offset = 0;
 async function cargarUsuario() {
   let response = await fetch(urlUsers);
   response = await response.json();
-//   document.getElementById("name").innerText = response.name;
-//   document.getElementById("mail").innerText = response.mail;
+     document.getElementById("name").innerText = response.name;
+     document.getElementById("mail").innerText = response.mail;
 
   tableSongsDatabase.innerHTML = "";
 
@@ -29,7 +29,7 @@ async function cargarUsuario() {
       const cells = row.querySelectorAll("td"); // Obtener todas las celdas de la fila
       const rowData = Array.from(cells).map((cell) => cell.textContent); // Obtener el texto de cada celda
       console.log(rowData);
-       unlikeSong(rowData[1]);
+      unlikeSong(rowData[1]);
     });
 
     const buttonCell = document.createElement("td");
@@ -231,22 +231,22 @@ async function likeSong(song) {
 }
 
 async function unlikeSong(idSong) {
-    const urlDeleteSong = `http://localhost:8080/favoritesongs/id/${idSong}`; // Asegúrate de que esta URL sea correcta
-  
-    const response = await fetch(urlDeleteSong, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
-  
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    } else {
-      console.log(`Song with ID ${idSong} deleted successfully.`);
-      cargarUsuario(); // Recargar la lista de canciones favoritas
+  const urlDeleteSong = `http://localhost:8080/favoritesongs/id/${idSong}`; // Asegúrate de que esta URL sea correcta
+
+  const response = await fetch(urlDeleteSong, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
     }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status}`);
+  } else {
+    console.log(`Song with ID ${idSong} deleted successfully.`);
+    cargarUsuario(); // Recargar la lista de canciones favoritas
   }
+}
 
 cargarUsuario();
 formularioListener();
