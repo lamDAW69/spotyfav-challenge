@@ -2,6 +2,9 @@ import { AuthService } from "./clases/auth-service";
 import { SongsService } from "./clases/songs-service";
 import { Song } from "./interfaces/song";
 
+
+
+
 if(!localStorage.getItem("token")) {
   location.assign("login.html");
 }
@@ -12,35 +15,7 @@ const authService = new AuthService();
 // const imgPreview = document.getElementById("imgPreview") as HTMLImageElement;
 const form = document.getElementById("formEvento") as HTMLFormElement;
 
-// const imgInput = form.imagen as HTMLInputElement;
-// imgInput.addEventListener("change", () => {
-//   if (!imgInput.files?.length) return;
 
-//   const reader = new FileReader();
-//   reader.readAsDataURL(imgInput.files[0]);
-//   reader.addEventListener(
-//     "loadend",
-//     () => {
-//         imgPreview.classList.remove("d-none");
-//         imgPreview.src = reader.result as string;
-//     }
-//   );
-// });
-
-// form.addEventListener("submit", async e => {
-//     e.preventDefault();
-
-//     // const evento: Song = {
-//     //     titulo: form.titulo.value,
-//     //     descripcion: form.descripcion.value,
-//     //     precio: +form.precio.value,
-//     //     fecha: form.fecha.value,
-//     //     imagen: imgPreview.src
-//     // }
-
-//     // await eventosService.addEvento(evento);
-//     // location.assign("index.html");
-// });
 
 document.getElementById("logout")?.addEventListener("click", () => {
   authService.logout(); // Borra el token
@@ -49,7 +24,7 @@ document.getElementById("logout")?.addEventListener("click", () => {
 
 
 
-async function getSpotifyAccessToken() {
+export async function getSpotifyAccessToken() {
   const clientId = "83b7adb206ed4316ba776cbb53874527";
   const clientSecret = "4e3990842cd14fbf9dfc740a7335f23f"; // Sustituye con tu Client Secret
   const tokenUrl = "https://accounts.spotify.com/api/token";
@@ -86,10 +61,10 @@ async function getSpotifyAccessToken() {
   }
 }
 
-async function searchSpotifyTracks(query: string, accessToken: string) {
+export async function searchSpotifyTracks(query: string, accessToken: string) {
   const searchUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
     query
-  )}&type=track&limit=10`;
+  )}&type=track&limit=5`;
 
   const headers = new Headers();
   headers.append("Authorization", `Bearer ${accessToken}`);
@@ -115,7 +90,7 @@ async function searchSpotifyTracks(query: string, accessToken: string) {
       name: track.name,
       artist: track.artists.map((artist: any) => artist.name).join(", "),
       album: track.album.name,
-      url: track.external_urls.spotify,
+      url: track.album.images[0].url,
     }));
   } catch (error) {
     console.error("Error al buscar canciones en Spotify:", error);
@@ -165,8 +140,8 @@ function formularioListener() {
             console.log("---------------------------");
 
             const likeButton = document.createElement("button");
-            likeButton.textContent = "💜";
-            likeButton.className = "btn btn-outline-dark";
+            likeButton.textContent = "💚";
+            likeButton.className = "btn btn-";
 
             // Añadir event listener al botón
             likeButton.addEventListener("click", function () {

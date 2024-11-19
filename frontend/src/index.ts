@@ -1,7 +1,7 @@
 import { AuthService } from "./clases/auth-service";
 import { SongsService } from "./clases/songs-service";
 import { Song } from "./interfaces/song";
-
+import { getSpotifyAccessToken , searchSpotifyTracks } from "./new-song.ts";
 if(!localStorage.getItem("token")) {
   location.assign("login.html");
 }
@@ -21,22 +21,32 @@ async function cargarSongs() {
   songs.forEach(addEvento);
 }
 
-function addEvento(song: Song) {
+async function addEvento(song: Song) {
   const clone = eventoTemplate.content.cloneNode(true) as DocumentFragment;
-  // const img = clone.querySelector(".card-img-top") as HTMLImageElement;
-  // img.src = evento.imagen;
+ // Obtener el token de acceso de Spotify
+ const token = await getSpotifyAccessToken();
+ if (!token) {
+   console.error("No se pudo obtener el token de acceso de Spotify");
+   return;
+ }
+
+const songInfo = await searchSpotifyTracks(song.songName, token);
+ if (!songInfo || songInfo.length === 0) {
+   console.error('No se encontró información de la canción en Spotify');
+   return;
+ }
+
+
+ const albumImageUrl = songInfo[0].url;
+
+console.log('informacion de la busqueda', songInfo);
+
+ const img = clone.querySelector(".card-img-top") as HTMLImageElement;
+  img.src = albumImageUrl;
   clone.querySelector(".card-title")!.textContent = song.songName;
+  clone.querySelector(".card-subtitle")!.textContent = song.artist;
   clone.querySelector(".card-text")!.textContent = song.album;
-
-  // clone.querySelector(".fecha")!.textContent = new Intl.DateTimeFormat(
-  //   "es-ES",
-  //   { dateStyle: "medium" }
-  // ).format(new Date(evento.fecha));
-
-  // clone.querySelector(".precio")!.textContent = new Intl.NumberFormat("es-ES", {
-  //   style: "currency", currency: "EUR"
-  // }).format(evento.precio);
-
+  
   const col = clone.firstElementChild!; // Obtenemos la referencia al div.col antes de insertar el template
   clone.querySelector("button.delete")!.addEventListener("click", async () => {
     await songsService.deleteSong(song.id!);
