@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script type="module" src="/src/login.ts"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Events manager</a>
+      </div>
+    </nav>
+    <div class="container mt-3">
+        <form id="formLogin">
+            <label class="mb-3 row">
+                <span class="col-sm-2 col-form-label">Correo</span>
+                <div class="col-sm-10">
+                    <input type="email" name="correo" class="form-control">
+                </div>
+            </label>
+            <label class="mb-3 row">
+                <span class="col-sm-2 col-form-label">Contraseña</span>
+                <div class="col-sm-10">
+                    <input type="password" name="password" class="form-control">
+                </div>
+            </label>
+            <div class="mt-3">
+                <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+  </body>
+</html>

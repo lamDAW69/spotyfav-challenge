@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <script type="module" src="/src/new-song.ts"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Events manager</a>
+        <ul class="navbar-nav me-auto mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="new-event.html">New event</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li>
+            <button class="nav-link" id="logout">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <form id="specs" class="w-100 mb-3">
+        <div class="row form-group d-flex justify-content-center align-items-center">
+            
+            <div class="mb-3">
+                <input class="form-control" id="prompt" placeholder="Cuéntame... ¿Qué quieres oír? 😏"
+                    maxlength="55">
+            </div>
+            <div class="w-50 d-flex justify-content-center">
+                <button id="recomendar-btn" type="submit" class="btn btn-primary w-50">Que puedo oír!</button>
+            </div>
+        </div>
+    </form>
+      <h3>Canciones encontradas</h3>
+      <table class="table table-hover mt-3" id="tableSongsSpotify">
+        <thead>
+          <tr>
+            <th scope="col">💜</th>
+            <th scope="col">Song</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Album</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>
