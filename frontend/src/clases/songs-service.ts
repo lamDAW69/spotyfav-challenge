@@ -13,8 +13,14 @@ export class SongsService {
     }
 
     async addSong(song: Song): Promise<Song>  {
-        const resp = await this.#http.post<SongResponse, Song>(`${SERVER}/songs`, song);
-        return resp.song;
+
+        try {
+            const resp = await this.#http.post<SongResponse, Song>(`${SERVER}/songs`, song);
+            return resp.song;
+        } catch (error) {
+            alert('Ya existe la canción.');
+            throw error;
+        }
     }
 
     deleteSong(id: number): Promise<void> {

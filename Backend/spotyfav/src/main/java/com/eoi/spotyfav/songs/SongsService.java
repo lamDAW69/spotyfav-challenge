@@ -31,8 +31,23 @@ public class SongsService {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Integer idAuth = Integer.parseInt(auth.getCredentials().toString());
-
         songDTO.setUserId(idAuth);
+
+        List<Song> cancionesUsuario = songsRepository.findByCreador(idAuth);
+
+
+        boolean existeCancion = cancionesUsuario.stream().anyMatch(cancion ->
+                        cancion.getSongName().equals(songDTO.getSongName()) &&
+                        cancion.getArtist().equals(songDTO.getArtist())  &&
+                        cancion.getAlbum().equals(songDTO.getAlbum())  &&
+                        cancion.getCreador().equals(songDTO.getUserId()));
+
+        System.out.println("------------> " + existeCancion);
+
+        if(existeCancion) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "El evento no es tuyo");
+        }
+        
         Song song = songsRepository.save(Song.fromDTO(songDTO));
 
         return songsRepository.findSongById(song.getId());
