@@ -1,7 +1,7 @@
 import { AuthService } from "./clases/auth-service";
 import { SongsService } from "./clases/songs-service";
 import { Song } from "./interfaces/song";
-import { getSpotifyAccessToken , searchSpotifyTracks } from "./new-song.ts";
+import { getSpotifyAccessToken , searchSpotifyTracks } from "./clases/spotify.ts";
 if(!localStorage.getItem("token")) {
   location.assign("login.html");
 }
