@@ -12,7 +12,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>spotyfav</artifactId>
 	<version>1.0.0</version>
-	<name>cancions</name>
+	<name>spotyfav</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
 	<licenses>
