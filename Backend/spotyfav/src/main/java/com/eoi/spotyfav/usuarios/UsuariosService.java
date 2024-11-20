@@ -31,6 +31,8 @@ public class UsuariosService {
         return u;
     }
 
+
+
     public User insert(UsuarioDTO usuarioDTO) throws NoSuchAlgorithmException {
         usuarioDTO.setPassword(encodePassword(usuarioDTO.getPassword()));
         usuarioDTO.setAvatar(imageUtils.saveImageBase64("usuarios", usuarioDTO.getAvatar()));
@@ -43,7 +45,7 @@ public class UsuariosService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
         if (!usuarioDTO.getAvatar().startsWith("http")) { // La imagen viene en Base64
-            usuarioDTO.setAvatar(imageUtils.saveImageBase64("eventos", usuarioDTO.getAvatar()));
+            usuarioDTO.setAvatar(imageUtils.saveImageBase64("usuarios", usuarioDTO.getAvatar()));
         }
         User userUpdate = User.fromDTO(usuarioDTO);
         userUpdate.setId(id);

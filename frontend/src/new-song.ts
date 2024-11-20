@@ -3,7 +3,7 @@ import { SongsService } from "./clases/songs-service";
 import { Song } from "./interfaces/song";
 
 import { getSpotifyAccessToken , searchSpotifyTracks } from "./clases/spotify.ts";
-
+import { UserLoggedService } from "./clases/user-service.ts";
 
 if(!localStorage.getItem("token")) {
   location.assign("login.html");
@@ -11,7 +11,7 @@ if(!localStorage.getItem("token")) {
 
 const eventosService = new SongsService();
 const authService = new AuthService();
-
+const userLoggedService = new UserLoggedService();
 // const imgPreview = document.getElementById("imgPreview") as HTMLImageElement;
 // const form = document.getElementById("formEvento") as HTMLFormElement;
 
@@ -149,5 +149,23 @@ async function likeSong(song: string[]) {
   // const data = await response.json();
   // console.log(data);
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const profilePic = document.getElementById("profilePic") as HTMLImageElement;
+  const correo = document.getElementById("correo") as HTMLSpanElement;
+
+  // Simulación de obtener datos del usuario (puedes reemplazar esto con una llamada a tu API)
+  const resp = await userLoggedService.getUserLogged();
+  console.log("Usuario log", resp.correo);
+
+  // Actualizar el DOM con los datos del usuario
+  profilePic.src = resp.avatar;
+  correo.textContent = resp.correo;
+});
+
+document.getElementById("correo")?.addEventListener("click", () => {
+
+  location.assign("profile.html");
+});
 
 formularioListener();

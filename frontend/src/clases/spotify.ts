@@ -38,7 +38,7 @@ export async function getSpotifyAccessToken() {
   export async function searchSpotifyTracks(query: string, accessToken: string) {
     const searchUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
       query
-    )}&type=track&limit=5`;
+    )}&type=track&limit=10`;
   
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${accessToken}`);
@@ -56,7 +56,7 @@ export async function getSpotifyAccessToken() {
       const data = await response.json();
   
       // Procesar resultados
-      console.log("Resultados de búsqueda:", data.tracks.items);
+      // console.log("Resultados de búsqueda:", data.tracks.items);
   
       // Retornar la lista de canciones
       return data.tracks.items.map((track: any) => ({

@@ -34,6 +34,13 @@ public class UsuariosController {
         return new RespuestaUsuarioDTO(usuariosService.getById(id));
     }
 
+    @GetMapping("/me")
+    public RespuestaUsuarioDTO getMe() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Integer idAuth = Integer.parseInt(auth.getCredentials().toString());
+        return new RespuestaUsuarioDTO(usuariosService.getById(idAuth));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RespuestaUsuarioDTO insert(@RequestBody @Valid UsuarioDTO u) throws NoSuchAlgorithmException {

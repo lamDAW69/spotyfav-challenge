@@ -17,6 +17,10 @@ import java.util.regex.Pattern;
 public class ImageUtils {
     public String saveImageBase64(String dir, String imageB64) {
         String[] parts = imageB64.split(",");
+
+        if(parts.length != 2) {
+            return "";
+        }
         String base64 = parts[1];
         String extension = getExtension(parts[0]);
         String fileName = System.currentTimeMillis() + "." + extension;
