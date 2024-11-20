@@ -3,18 +3,18 @@ import { SERVER } from "./constants";
 import { RegisterData } from "./interfaces/user.ts";
 import { Http } from "./clases/http.ts";
 
+
 const userLoggedService = new UserLoggedService();
 const http = new Http();
-
 
 document.getElementById('formRegister')?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const nombre = (document.getElementById('nombre') as HTMLInputElement).value;
-    const correo = (document.getElementById('correo') as HTMLInputElement).value;
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const imgInput = document.getElementById('imagen') as HTMLInputElement;
-    const imgPreview = document.getElementById('imgPreview') as HTMLImageElement;
+    const nombre = (document.getElementById('nombre-modificado') as HTMLInputElement).value;
+    const correo = (document.getElementById('correo-modificado') as HTMLInputElement).value;
+    const password = (document.getElementById('password-modificado') as HTMLInputElement).value;
+    const imgInput = document.getElementById('imagen-modificado') as HTMLInputElement;
+    const imgPreview = document.getElementById('imgPreview-modificado') as HTMLImageElement;
 
     if (!imgInput.files?.length) {
         alert('Por favor, selecciona una imagen.');
@@ -38,15 +38,18 @@ document.getElementById('formRegister')?.addEventListener('submit', async (event
         // };
         
         const registerData: RegisterData = {
-            nombre : resp.nombre,
-            correo : resp.correo,
-            avatar : resp.avatar,
-            password : password
+            nombre : nombre,
+            correo : correo,
+            avatar : imgPreview.src,
+            password : password, 
+            cancionesFavoritas : resp.cancionesFavoritas 
         }
 
 
-        const userUpdated = http.post(SERVER + "/auth/registro", registerData)
 
+        const userUpdated = userLoggedService.updateUserLogged(registerData)
+
+        console.log('Usuario actualizado', registerData);
         if (!userUpdated) {
             alert('Error al registrar');
         } else {

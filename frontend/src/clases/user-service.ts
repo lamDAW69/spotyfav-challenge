@@ -18,16 +18,6 @@ export class UserLoggedService {
         return resp.user;
     }
 
-    // async addSong(song: Song): Promise<Song>  {
-
-    //     try {
-    //         const resp = await this.#http.post<SongResponse, Song>(`${SERVER}/songs`, song);
-    //         return resp.song;
-    //     } catch (error) {
-    //         alert('Ya existe la canción.');
-    //         throw error;
-    //     }
-    // }
 
     // deleteSong(id: number): Promise<void> {
     //     return this.#http.delete<void>(`${SERVER}/songs/${id}`);
