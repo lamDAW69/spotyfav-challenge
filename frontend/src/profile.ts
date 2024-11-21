@@ -1,13 +1,14 @@
 import { UserLoggedService } from "./clases/user-service.ts";
 import { RegisterData } from "./interfaces/user.ts";
 import { AuthService } from "./clases/auth-service.ts";
+import { SERVER } from "./constants.ts";
 
 const userLoggedService = new UserLoggedService();
 const authService = new AuthService();
+const formulario = document.getElementById("formRegister") as HTMLFormElement;
 
-document
-  .getElementById("formRegister")
-  ?.addEventListener("submit", async (song) => {
+
+formulario?.addEventListener("submit", async (song) => {
     song.preventDefault();
 
     // const resp = await userLoggedService.getUserLogged();
@@ -30,16 +31,7 @@ document
       "imgPreview-modificado"
     ) as HTMLImageElement;
 
-    const reader = new FileReader();
-    if (!imgInput.files?.length) {
-      reader.EMPTY;
-    } else {
-      reader.readAsDataURL(imgInput.files[0]);
-    }
 
-    reader.addEventListener("loadend", async () => {
-      imgPreview.classList.remove("d-none");
-      imgPreview.src = reader.result as string;
 
       const registerData: RegisterData = {
         nombre: nombre,
@@ -59,8 +51,8 @@ document
       //     alert("Registro exitoso");
       //   }
 
-      //   window.location.reload();
-    });
+         window.location.reload();
+    
   });
 
 // Manejo de la previsualización de la imagen
@@ -82,25 +74,7 @@ imgInput.addEventListener("change", () => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const profilePic = document.getElementById("profilePic") as HTMLImageElement;
-  const correo = document.getElementById("correo") as HTMLSpanElement;
 
-  // Simulación de obtener datos del usuario (puedes reemplazar esto con una llamada a tu API)
-  const resp = await userLoggedService.getUserLogged();
-  console.log("Usuario log", resp.correo);
-
-  // Actualizar el DOM con los datos del usuario
-  profilePic.src = resp.avatar;
-  correo.textContent = resp.correo;
-
-  (document.getElementById("nombre-modificado") as HTMLInputElement).value =
-    resp.nombre;
-  (document.getElementById("correo-modificado") as HTMLInputElement).value =
-    resp.correo;
-  // (document.getElementById("nombre-modificado") as HTMLInputElement).value = resp.nombre;
-  // (document.getElementById("nombre-modificado") as HTMLInputElement).value = resp.nombre;
-});
 
 document.getElementById("correo")?.addEventListener("click", () => {
   location.assign("profile.html");
@@ -120,4 +94,42 @@ document.getElementById("delete-btn")?.addEventListener("click", async() => {
     authService.logout();
     location.assign("login.html");
   }
+});
+
+const profilePicNav = document.getElementById("profilePic-nav") as HTMLImageElement;
+const correoNav = document.getElementById("correo-nav") as HTMLSpanElement;
+
+// Simulación de obtener datos del usuario (puedes reemplazar esto con una llamada a tu API)
+const resp = await userLoggedService.getUserLogged();
+console.log("Usuario log", resp.correo);
+
+if (resp.avatar == SERVER + "/") {
+  profilePicNav.src = "./src/img/gata.webp";
+} else {
+  profilePicNav.src = resp.avatar;
+}
+correoNav.textContent = resp.correo;
+
+
+
+(document.getElementById("nombre-modificado") as HTMLInputElement).value =
+  resp.nombre;
+(document.getElementById("correo-modificado") as HTMLInputElement).value =
+  resp.correo;
+// (document.getElementById("nombre-modificado") as HTMLInputElement).value = resp.nombre;
+// (document.getElementById("nombre-modificado") as HTMLInputElement).value = resp.nombre;
+
+formulario.imagen.addEventListener("change", () => {
+const reader = new FileReader();
+if (!imgInput.files?.length) {
+  reader.EMPTY;
+} else {
+  reader.readAsDataURL(imgInput.files[0]);
+}
+
+reader.addEventListener("loadend", async () => {
+  imgPreview.classList.remove("d-none");
+  imgPreview.src = reader.result as string;
+});
+
 });

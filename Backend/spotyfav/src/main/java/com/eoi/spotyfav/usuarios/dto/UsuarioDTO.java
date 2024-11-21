@@ -21,5 +21,4 @@ public class UsuarioDTO {
 
     private String avatar;
 
-    private List<Song> favoriteSongs;
 }

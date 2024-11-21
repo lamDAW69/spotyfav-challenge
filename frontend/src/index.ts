@@ -6,7 +6,7 @@ import {
   searchSpotifyTracks,
 } from "./clases/spotify.ts";
 import { UserLoggedService } from "./clases/user-service.ts";
-
+import { SERVER } from "./constants";
 
 if (!localStorage.getItem("token")) {
   location.assign("login.html");
@@ -70,24 +70,35 @@ document.getElementById("logout")?.addEventListener("click", () => {
   location.assign("login.html");
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const profilePic = document.getElementById("profilePic") as HTMLImageElement;
-  const correo = document.getElementById("correo") as HTMLSpanElement;
+// document.addEventListener("DOMContentLoaded", async () => {
 
-  // Simulación de obtener datos del usuario (puedes reemplazar esto con una llamada a tu API)
-  const resp = await userLoggedService.getUserLogged();
-  console.log("Usuario log", resp.correo);
-
-  // Actualizar el DOM con los datos del usuario
-  profilePic.src = resp.avatar;
-  correo.textContent = resp.correo;
-});
+// });
 
 document.getElementById("correo")?.addEventListener("click", () => {
-
   location.assign("profile.html");
 });
 
+const profilePic = document.getElementById("profilePic") as HTMLImageElement;
+const correo = document.getElementById("correo") as HTMLSpanElement;
+
+
+const resp = await userLoggedService.getUserLogged();
+
+
+// const respAvatar = SERVER + "/";
+// console.log("Usuario Avatar", respAvatar);
+// console.log("Server", SERVER);
+// console.log(resp.avatar === SERVER);
+
+if (resp.avatar == SERVER + "/") {
+  profilePic.src = "./src/img/gata.webp";
+} else {
+  profilePic.src = resp.avatar;
+}
+
+// Actualizar el DOM con los datos del usuario
+// profilePic.src = resp.avatar;
+correo.textContent = resp.correo;
 
 // Manejo del botón de logout
 document.getElementById("logout")?.addEventListener("click", () => {

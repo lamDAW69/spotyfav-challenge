@@ -10,16 +10,14 @@ document.getElementById('formRegister')?.addEventListener('submit', async (event
     const imgInput = document.getElementById('imagen') as HTMLInputElement;
     const imgPreview = document.getElementById('imgPreview') as HTMLImageElement;
 
-    if (!imgInput.files?.length) {
-        alert('Por favor, selecciona una imagen.');
-        return;
-    }
+    // if (!imgInput.files?.length) {
+    //     alert('Por favor, selecciona una imagen.');
+    //     return;
+    // }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(imgInput.files[0]);
-    reader.addEventListener('loadend', async () => {
-        imgPreview.classList.remove('d-none');
-        imgPreview.src = reader.result as string;
+    // const reader = new FileReader();
+    // reader.readAsDataURL(imgInput.files[0]);
+
 
         const usuario = {
             nombre,
@@ -46,7 +44,7 @@ document.getElementById('formRegister')?.addEventListener('submit', async (event
         } catch (error) {
             alert('Error al registrar');
         }
-    });
+  
 });
 
 // Manejo de la previsualización de la imagen
@@ -54,10 +52,12 @@ const imgInput = document.getElementById('imagen') as HTMLInputElement;
 const imgPreview = document.getElementById('imgPreview') as HTMLImageElement;
 
 imgInput.addEventListener('change', () => {
-    if (!imgInput.files?.length) return;
-
     const reader = new FileReader();
-    reader.readAsDataURL(imgInput.files[0]);
+    if (!imgInput.files?.length) {
+      reader.EMPTY;
+    } else {
+      reader.readAsDataURL(imgInput.files[0]);
+    }
     reader.addEventListener('loadend', () => {
         imgPreview.classList.remove('d-none');
         imgPreview.src = reader.result as string;

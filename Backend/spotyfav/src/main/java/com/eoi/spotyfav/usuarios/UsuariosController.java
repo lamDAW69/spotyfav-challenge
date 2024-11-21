@@ -50,7 +50,7 @@ public class UsuariosController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public RespuestaUsuarioDTO update(@RequestBody @Valid UsuarioUpdateDTO u) {
+    public RespuestaUsuarioDTO update(@RequestBody @Valid UsuarioUpdateDTO u)  throws NoSuchAlgorithmException{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Integer idAuth = Integer.parseInt(auth.getCredentials().toString());
         return new RespuestaUsuarioDTO(usuariosService.update(idAuth, u));

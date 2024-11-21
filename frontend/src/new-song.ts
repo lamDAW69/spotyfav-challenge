@@ -4,6 +4,7 @@ import { Song } from "./interfaces/song";
 
 import { getSpotifyAccessToken , searchSpotifyTracks } from "./clases/spotify.ts";
 import { UserLoggedService } from "./clases/user-service.ts";
+import { SERVER } from "./constants.ts";
 
 if(!localStorage.getItem("token")) {
   location.assign("login.html");
@@ -150,18 +151,22 @@ async function likeSong(song: string[]) {
   // console.log(data);
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const profilePic = document.getElementById("profilePic") as HTMLImageElement;
-  const correo = document.getElementById("correo") as HTMLSpanElement;
+
+  const profilePicNav = document.getElementById("profilePic") as HTMLImageElement;
+  const correoNav = document.getElementById("correo") as HTMLSpanElement;
 
   // Simulación de obtener datos del usuario (puedes reemplazar esto con una llamada a tu API)
   const resp = await userLoggedService.getUserLogged();
   console.log("Usuario log", resp.correo);
 
-  // Actualizar el DOM con los datos del usuario
-  profilePic.src = resp.avatar;
-  correo.textContent = resp.correo;
-});
+  if (resp.avatar == SERVER + "/") {
+    profilePicNav.src = "./src/img/gata.webp";
+  } else {
+    profilePicNav.src = resp.avatar;
+  }
+  correoNav.textContent = resp.correo;
+
+
 
 document.getElementById("correo")?.addEventListener("click", () => {
 
