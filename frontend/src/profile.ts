@@ -7,53 +7,35 @@ const userLoggedService = new UserLoggedService();
 const authService = new AuthService();
 const formulario = document.getElementById("formRegister") as HTMLFormElement;
 
-
 formulario?.addEventListener("submit", async (song) => {
-    song.preventDefault();
+  song.preventDefault();
 
-    // const resp = await userLoggedService.getUserLogged();
+  // const resp = await userLoggedService.getUserLogged();
 
-   
+  const nombre = (
+    document.getElementById("nombre-modificado") as HTMLInputElement
+  ).value;
+  const correo = (
+    document.getElementById("correo-modificado") as HTMLInputElement
+  ).value;
+  const password = (
+    document.getElementById("password-modificado") as HTMLInputElement
+  ).value;
+  const imgPreview = document.getElementById(
+    "imgPreview-modificado"
+  ) as HTMLImageElement;
 
-    const nombre = (
-      document.getElementById("nombre-modificado") as HTMLInputElement
-    ).value;
-    const correo = (
-      document.getElementById("correo-modificado") as HTMLInputElement
-    ).value;
-    const password = (
-      document.getElementById("password-modificado") as HTMLInputElement
-    ).value;
-    const imgInput = document.getElementById(
-      "imagen-modificado"
-    ) as HTMLInputElement;
-    const imgPreview = document.getElementById(
-      "imgPreview-modificado"
-    ) as HTMLImageElement;
+  const registerData: RegisterData = {
+    nombre: nombre,
+    correo: correo,
+    password: password,
+    avatar: imgPreview.src,
+  };
 
+  await userLoggedService.updateUserLogged(registerData);
 
-
-      const registerData: RegisterData = {
-        nombre: nombre,
-        correo: correo,
-        password: password,
-        avatar: imgPreview.src,
-      };
-
-      const userUpdated = await userLoggedService.updateUserLogged(
-        registerData
-      );
-
-      console.log("Usuario actualizado", userUpdated);
-      //   if (!userUpdated) {
-      //     alert("Error al registrar");
-      //   } else {
-      //     alert("Registro exitoso");
-      //   }
-
-         window.location.reload();
-    
-  });
+  window.location.reload();
+});
 
 // Manejo de la previsualización de la imagen
 const imgInput = document.getElementById(
@@ -74,8 +56,6 @@ imgInput.addEventListener("change", () => {
   });
 });
 
-
-
 document.getElementById("correo")?.addEventListener("click", () => {
   location.assign("profile.html");
 });
@@ -85,7 +65,7 @@ document.getElementById("logout")?.addEventListener("click", () => {
   location.assign("login.html");
 });
 
-document.getElementById("delete-btn")?.addEventListener("click", async() => {
+document.getElementById("delete-btn")?.addEventListener("click", async () => {
   const confirmDelete = confirm(
     "¿Estás seguro de que deseas eliminar tu cuenta?"
   );
@@ -96,12 +76,13 @@ document.getElementById("delete-btn")?.addEventListener("click", async() => {
   }
 });
 
-const profilePicNav = document.getElementById("profilePic-nav") as HTMLImageElement;
+const profilePicNav = document.getElementById(
+  "profilePic-nav"
+) as HTMLImageElement;
 const correoNav = document.getElementById("correo-nav") as HTMLSpanElement;
 
 // Simulación de obtener datos del usuario (puedes reemplazar esto con una llamada a tu API)
 const resp = await userLoggedService.getUserLogged();
-console.log("Usuario log", resp.correo);
 
 if (resp.avatar == SERVER + "/") {
   profilePicNav.src = "./src/img/gata.webp";
@@ -110,26 +91,21 @@ if (resp.avatar == SERVER + "/") {
 }
 correoNav.textContent = resp.correo;
 
-
-
 (document.getElementById("nombre-modificado") as HTMLInputElement).value =
   resp.nombre;
 (document.getElementById("correo-modificado") as HTMLInputElement).value =
   resp.correo;
-// (document.getElementById("nombre-modificado") as HTMLInputElement).value = resp.nombre;
-// (document.getElementById("nombre-modificado") as HTMLInputElement).value = resp.nombre;
 
 formulario.imagen.addEventListener("change", () => {
-const reader = new FileReader();
-if (!imgInput.files?.length) {
-  reader.EMPTY;
-} else {
-  reader.readAsDataURL(imgInput.files[0]);
-}
+  const reader = new FileReader();
+  if (!imgInput.files?.length) {
+    reader.EMPTY;
+  } else {
+    reader.readAsDataURL(imgInput.files[0]);
+  }
 
-reader.addEventListener("loadend", async () => {
-  imgPreview.classList.remove("d-none");
-  imgPreview.src = reader.result as string;
-});
-
+  reader.addEventListener("loadend", async () => {
+    imgPreview.classList.remove("d-none");
+    imgPreview.src = reader.result as string;
+  });
 });

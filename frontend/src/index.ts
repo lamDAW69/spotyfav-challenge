@@ -45,8 +45,6 @@ async function addEvento(song: Song) {
 
   const albumImageUrl = songInfo[0].url;
 
-  // console.log("informacion de la busqueda", songInfo);
-
   const img = clone.querySelector(".card-img-top") as HTMLImageElement;
   img.src = albumImageUrl;
   clone.querySelector(".card-title")!.textContent = song.songName;
@@ -80,15 +78,7 @@ document.getElementById("correo")?.addEventListener("click", () => {
 
 const profilePic = document.getElementById("profilePic") as HTMLImageElement;
 const correo = document.getElementById("correo") as HTMLSpanElement;
-
-
 const resp = await userLoggedService.getUserLogged();
-
-
-// const respAvatar = SERVER + "/";
-// console.log("Usuario Avatar", respAvatar);
-// console.log("Server", SERVER);
-// console.log(resp.avatar === SERVER);
 
 if (resp.avatar == SERVER + "/") {
   profilePic.src = "./src/img/gata.webp";
@@ -96,13 +86,10 @@ if (resp.avatar == SERVER + "/") {
   profilePic.src = resp.avatar;
 }
 
-// Actualizar el DOM con los datos del usuario
-// profilePic.src = resp.avatar;
 correo.textContent = resp.correo;
 
 // Manejo del botón de logout
 document.getElementById("logout")?.addEventListener("click", () => {
-  // Lógica para cerrar sesión
   alert("Sesión cerrada");
   window.location.href = "login.html";
 });

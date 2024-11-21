@@ -2,11 +2,14 @@ import { AuthService } from "./clases/auth-service";
 import { SongsService } from "./clases/songs-service";
 import { Song } from "./interfaces/song";
 
-import { getSpotifyAccessToken , searchSpotifyTracks } from "./clases/spotify.ts";
+import {
+  getSpotifyAccessToken,
+  searchSpotifyTracks,
+} from "./clases/spotify.ts";
 import { UserLoggedService } from "./clases/user-service.ts";
 import { SERVER } from "./constants.ts";
 
-if(!localStorage.getItem("token")) {
+if (!localStorage.getItem("token")) {
   location.assign("login.html");
 }
 
@@ -16,12 +19,10 @@ const userLoggedService = new UserLoggedService();
 // const imgPreview = document.getElementById("imgPreview") as HTMLImageElement;
 // const form = document.getElementById("formEvento") as HTMLFormElement;
 
-
 document.getElementById("logout")?.addEventListener("click", () => {
   authService.logout(); // Borra el token
   location.assign("login.html");
 });
-
 
 function formularioListener() {
   const formulario = document.getElementById("specs");
@@ -30,12 +31,15 @@ function formularioListener() {
   promptInput?.addEventListener("input", function (event) {
     const target = event.target as HTMLInputElement | null;
     if (target && target.value.length > 0) {
-      target.value = target.value.charAt(0).toUpperCase() + target.value.slice(1);
+      target.value =
+        target.value.charAt(0).toUpperCase() + target.value.slice(1);
     }
   });
 
-  const tableSongsSpotify = document.getElementById("tableSongsSpotify") as HTMLTableElement;
-  
+  const tableSongsSpotify = document.getElementById(
+    "tableSongsSpotify"
+  ) as HTMLTableElement;
+
   formulario?.addEventListener("submit", async function (e) {
     e.preventDefault();
     const query = document.getElementById("prompt") as HTMLInputElement | null;
@@ -45,8 +49,6 @@ function formularioListener() {
     }
     tableSongsSpotify.innerHTML = "";
     getSpotifyAccessToken().then((token) => {
-      console.log("Token guardado:", token);
-
       // Ejemplo de uso
       (async () => {
         const accessToken = token; // Sustituye con el token válido
@@ -58,13 +60,6 @@ function formularioListener() {
             const song = track;
             const row = document.createElement("tr");
 
-            console.log(`ID: ${track.id}`);
-            console.log(`Canción: ${track.name}`);
-            console.log(`Artista: ${track.artist}`);
-            console.log(`Álbum: ${track.album}`);
-            console.log(`URL: ${track.url}`);
-            console.log("---------------------------");
-
             const likeButton = document.createElement("button");
             likeButton.textContent = "💚";
             likeButton.className = "btn btn-";
@@ -74,8 +69,9 @@ function formularioListener() {
               const row = this.closest("tr"); // Obtener la fila más cercana
               if (row) {
                 const cells = row.querySelectorAll("td"); // Obtener todas las celdas de la fila
-                const rowData = Array.from(cells).map((cell) => cell.textContent); // Obtener el texto de cada celda
-                console.log(rowData);
+                const rowData = Array.from(cells).map(
+                  (cell) => cell.textContent
+                ); // Obtener el texto de cada celda
                 likeSong(rowData as string[]);
               }
             });
@@ -100,76 +96,32 @@ function formularioListener() {
       })();
     });
   });
-
-  // formulario.addEventListener('keypress', function (event) {
-  //     if (event.key === 'Enter') {
-  //         event.preventDefault(); // Evita que se envíe el formulario
-  //         document.getElementById('recomendar-btn').click(); // Simula un clic en el botón
-  //     }
-  // });
 }
 
-// const idUser = "yourUserId"; // Define your user ID
-// const urlSongs = "https://your-api-endpoint.com/songs"; // Define your API endpoint
-
 async function likeSong(song: string[]) {
-  console.log(song);
   const songPost = {
-    // userId: 0,
     songName: song[1],
     artist: song[2],
     album: song[3],
   };
-  console.log(song[1]);
 
-  //     // const evento: Song = {
-//     //     titulo: form.titulo.value,
-//     //     descripcion: form.descripcion.value,
-//     //     precio: +form.precio.value,
-//     //     fecha: form.fecha.value,
-//     //     imagen: imgPreview.src
-//     // }
-
-    await eventosService.addSong(songPost as Song);
-    location.assign("index.html");
-
-  // const response = await fetch(urlSongs, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(songPost),
-  // });
-
-  // if (!response.ok) {
-  //   throw new Error(`Error: ${response.status}`);
-  // } else {
-  //   // cargarUsuario();
-  // }
-
-  // const data = await response.json();
-  // console.log(data);
+  await eventosService.addSong(songPost as Song);
+  location.assign("index.html");
 }
 
+const profilePicNav = document.getElementById("profilePic") as HTMLImageElement;
+const correoNav = document.getElementById("correo") as HTMLSpanElement;
 
-  const profilePicNav = document.getElementById("profilePic") as HTMLImageElement;
-  const correoNav = document.getElementById("correo") as HTMLSpanElement;
+const resp = await userLoggedService.getUserLogged();
 
-  // Simulación de obtener datos del usuario (puedes reemplazar esto con una llamada a tu API)
-  const resp = await userLoggedService.getUserLogged();
-  console.log("Usuario log", resp.correo);
-
-  if (resp.avatar == SERVER + "/") {
-    profilePicNav.src = "./src/img/gata.webp";
-  } else {
-    profilePicNav.src = resp.avatar;
-  }
-  correoNav.textContent = resp.correo;
-
-
+if (resp.avatar == SERVER + "/") {
+  profilePicNav.src = "./src/img/gata.webp";
+} else {
+  profilePicNav.src = resp.avatar;
+}
+correoNav.textContent = resp.correo;
 
 document.getElementById("correo")?.addEventListener("click", () => {
-
   location.assign("profile.html");
 });
 

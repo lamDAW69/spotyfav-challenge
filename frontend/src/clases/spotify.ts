@@ -26,8 +26,7 @@ export async function getSpotifyAccessToken() {
   
       const data = await response.json();
       const accessToken = data.access_token;
-      // console.log('Access Token:', accessToken);
-  
+
       // Asignar el token a una variable
       return accessToken;
     } catch (error) {
@@ -54,10 +53,7 @@ export async function getSpotifyAccessToken() {
       }
   
       const data = await response.json();
-  
-      // Procesar resultados
-      // console.log("Resultados de búsqueda:", data.tracks.items);
-  
+
       // Retornar la lista de canciones
       return data.tracks.items.map((track: any) => ({
         id: track.id,
