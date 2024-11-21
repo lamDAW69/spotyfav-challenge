@@ -13,7 +13,7 @@ if (!localStorage.getItem("token")) {
   location.assign("login.html");
 }
 
-const eventosService = new SongsService();
+const songsService = new SongsService();
 const authService = new AuthService();
 const userLoggedService = new UserLoggedService();
 // const imgPreview = document.getElementById("imgPreview") as HTMLImageElement;
@@ -49,7 +49,7 @@ function formularioListener() {
     }
     tableSongsSpotify.innerHTML = "";
     getSpotifyAccessToken().then((token) => {
-      // Ejemplo de uso
+      
       (async () => {
         const accessToken = token; // Sustituye con el token válido
         const tracks = await searchSpotifyTracks(query.value, accessToken);
@@ -105,7 +105,7 @@ async function likeSong(song: string[]) {
     album: song[3],
   };
 
-  await eventosService.addSong(songPost as Song);
+  await songsService.addSong(songPost as Song);
   location.assign("index.html");
 }
 

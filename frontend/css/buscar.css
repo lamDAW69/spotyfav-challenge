@@ -1,12 +1,13 @@
 body {
-    font-family: "Poppins", sans-serif;
-    background-color: #121212;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-  }
+  font-family: "Poppins", sans-serif;
+  background-color: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
 
-  html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -17,125 +18,127 @@ body {
   flex-grow: 1;
 }
 
+footer {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
 
-  footer {
-    background-color: #343a40;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
-  
+.navbar-brand {
+  color: #1db954 !important;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
 
-  .navbar-brand {
-    color: #1db954 !important;
-    font-weight: 600;
-    font-size: 1.5rem;
-  }
+.nav-link.active {
+  color: #1db954 !important;
+}
 
-  .nav-link.active {
-    color: #1db954 !important;
-  }
+.nav-link {
+  color: #b3b3b3 !important;
+}
 
-  .nav-link {
-    color: #b3b3b3 !important;
-  }
+.nav-link:hover {
+  color: #fff !important;
+}
 
-  .nav-link:hover {
-    color: #fff !important;
-  }
+#logout {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
-  #logout {
-    background: none;
-    border: none;
-    color: #b3b3b3;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+#logout:hover {
+  color: #1db954;
+}
 
-  #logout:hover {
-    color: #1db954;
-  }
+#specs {
+  background-color: #181818;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
 
-  #specs {
-    background-color: #181818;
-    padding: 1.5rem;
-    border-radius: 10px;
-    margin-top: 1.5rem;
-  }
+#prompt {
+  background-color: #121212;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 0.8rem 1.5rem;
+  transition: all 0.3s ease;
+}
 
-  #prompt {
-    background-color: #121212;
-    color: #fff;
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 0.8rem 1.5rem;
-    transition: all 0.3s ease;
-  }
+#prompt:focus {
+  border-color: #1db954;
+  outline: none;
+  box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+}
 
-  #prompt:focus {
-    border-color: #1db954;
-    outline: none;
-    box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
-  }
+#prompt::placeholder {
+  color: #b3b3b3;
+}
 
-  #recomendar-btn {
-    background-color: #1db954;
-    border: none;
-    border-radius: 20px;
-    padding: 0.5rem 2rem;
-    font-size: 1rem;
-    color: #fff;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
+#recomendar-btn {
+  background-color: #1db954;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
 
-  #recomendar-btn:hover {
-    background-color: #1ed760;
-    transform: scale(1.05);
-  }
+#recomendar-btn:hover {
+  background-color: #1ed760;
+  transform: scale(1.05);
+}
 
-  h3 {
-    color: #1db954;
-    margin-top: 2rem;
-    text-align: center;
-  }
+h3 {
+  color: #1db954;
+  margin-top: 2rem;
+  text-align: center;
+}
 
-  .table-hover tbody tr:hover {
-    background-color: rgba(29, 185, 84, 0.1);
-  }
+.table-hover tbody tr:hover {
+  background-color: rgba(29, 185, 84, 0.1);
+}
 
-  th {
-    background-color: #181818;
-    border-bottom: 2px solid #333;
-    text-align: center;
-  }
+th {
+  background-color: #181818;
+  border-bottom: 2px solid #333;
+  text-align: center;
+}
 
-  td {
-    /* text-align: center; */
-    vertical-align: middle;
-  }
+td {
+  /* text-align: center; */
+  vertical-align: middle;
+}
 
-  .bi-heart {
-    color: #1db954;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-  }
+.bi-heart {
+  color: #1db954;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
 
-  tr:hover {
-    background-color: #333;
-  }
+tr:hover {
+  background-color: #333;
+}
 
-  .bi-heart:hover {
-    color: #1ed760;
-    transform: scale(1.2);
-  }
+.bi-heart:hover {
+  color: #1ed760;
+  transform: scale(1.2);
+}
 
-  /* Estilo para el placeholder */
-  ::placeholder {
-    color: #fff; /* Color blanco para el placeholder */
-    opacity: 1; /* Para que el color se aplique completamente */
-  }
+/* Estilo para el placeholder */
+::placeholder {
+  color: #fff; /* Color blanco para el placeholder */
+  opacity: 1; /* Para que el color se aplique completamente */
+}
