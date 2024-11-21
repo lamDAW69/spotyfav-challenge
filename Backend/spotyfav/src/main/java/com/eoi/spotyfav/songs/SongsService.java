@@ -71,6 +71,10 @@ public class SongsService {
         songsRepository.delete(song);
     }
 
+//    public void deleteByCreadorId(int creadorId) {
+//        songsRepository.deleteByCreador(creadorId);
+//    }
+
 
     private Song getAndCheckSong(int id) {
         Song song = songsRepository.findById(id)

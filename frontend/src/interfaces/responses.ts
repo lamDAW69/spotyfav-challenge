@@ -1,5 +1,5 @@
 import { Song } from "./song";
-import { UserLogged } from "./user";
+import { RegisterData, UserLogged } from "./user";
 
 export interface SongsResponse {
     songs: Song[];
@@ -16,3 +16,9 @@ export interface LoginResponse {
 export interface UserLoggedResponse {
     user: UserLogged;
 }
+
+export interface RegisterResponse {
+    user: RegisterData;
+}
+
+

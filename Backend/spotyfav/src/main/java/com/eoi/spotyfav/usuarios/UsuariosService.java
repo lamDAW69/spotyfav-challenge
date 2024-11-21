@@ -2,10 +2,14 @@ package com.eoi.spotyfav.usuarios;
 
 
 import com.eoi.spotyfav.auth.dto.LoginDTO;
+import com.eoi.spotyfav.songs.SongsRepository;
 import com.eoi.spotyfav.usuarios.dto.UsuarioDTO;
+import com.eoi.spotyfav.usuarios.dto.UsuarioUpdateDTO;
 import com.eoi.spotyfav.utils.ImageUtils;
+import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,6 +25,7 @@ import java.util.List;
 public class UsuariosService {
     private final UsuariosRepository usuariosRepository;
     private final @NonNull ImageUtils imageUtils;
+    private final SongsRepository songsRepository;
 
     List<User> getAll() {
         return usuariosRepository.findAll();
@@ -32,7 +37,6 @@ public class UsuariosService {
     }
 
 
-
     public User insert(UsuarioDTO usuarioDTO) throws NoSuchAlgorithmException {
         usuarioDTO.setPassword(encodePassword(usuarioDTO.getPassword()));
         usuarioDTO.setAvatar(imageUtils.saveImageBase64("usuarios", usuarioDTO.getAvatar()));
@@ -40,21 +44,55 @@ public class UsuariosService {
         return usuariosRepository.findUsuarioById(user.getId());
     }
 
-    public User update(int id, UsuarioDTO usuarioDTO) {
+//    public User update(int id, UsuarioUpdateDTO usuarioDTO) {
+//        User user = usuariosRepository.findById(id)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+//
+//        if (!usuarioDTO.getAvatar().startsWith("http")) { // La imagen viene en Base64
+//            usuarioDTO.setAvatar(imageUtils.saveImageBase64("usuarios", usuarioDTO.getAvatar()));
+//        }
+//        User userUpdate = User.fromUpdateDTO(usuarioDTO);
+//        userUpdate.setId(id);
+//        userUpdate.setPassword(user.getPassword());
+//        usuariosRepository.save(userUpdate);
+//        return usuariosRepository.findUsuarioById(user.getId());
+//    }
+
+    public User update(int id, UsuarioUpdateDTO usuarioDTO) {
         User user = usuariosRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        try {
+            boolean esMismaPass = user.getPassword().equals(encodePassword(usuarioDTO.getPassword()));
 
-        if (!usuarioDTO.getAvatar().startsWith("http")) { // La imagen viene en Base64
-            usuarioDTO.setAvatar(imageUtils.saveImageBase64("usuarios", usuarioDTO.getAvatar()));
+            if (esMismaPass) {
+                if (usuarioDTO.getNombre().isEmpty()) {
+                    user.setNombre(usuarioDTO.getNombre());
+                }
+                if (usuarioDTO.getCorreo().isEmpty()) {
+                    user.setCorreo(usuarioDTO.getCorreo());
+                }
+                if (usuarioDTO.getAvatar().isEmpty()) {
+                    // La imagen viene en Base64
+                    usuarioDTO.setAvatar(imageUtils.saveImageBase64("usuarios", usuarioDTO.getAvatar()));
+                    user.setAvatar(usuarioDTO.getAvatar());
+                }
+                usuariosRepository.save(user);
+
+
+//                user.setPassword(encodePassword(usuarioDTO.getPassword()));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-        User userUpdate = User.fromDTO(usuarioDTO);
-        userUpdate.setId(id);
-        userUpdate.setPassword(user.getPassword());
-        usuariosRepository.save(userUpdate);
+        System.out.println("UsuarioDTO: " + usuarioDTO.getCorreo());
+
+
         return usuariosRepository.findUsuarioById(user.getId());
     }
 
+    @Transactional
     public void delete(int idUsuario) {
+        songsRepository.deleteByCreador(idUsuario);
         usuariosRepository.deleteById(idUsuario);
     }
 

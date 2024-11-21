@@ -7,6 +7,7 @@ import com.eoi.spotyfav.songs.dto.RespuestaSongsDTO;
 import com.eoi.spotyfav.usuarios.dto.RespuestaUsuarioDTO;
 import com.eoi.spotyfav.usuarios.dto.RespuestaUsuariosDTO;
 import com.eoi.spotyfav.usuarios.dto.UsuarioDTO;
+import com.eoi.spotyfav.usuarios.dto.UsuarioUpdateDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,16 +50,18 @@ public class UsuariosController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public RespuestaUsuarioDTO update(@RequestBody @Valid UsuarioDTO u) {      
+    public RespuestaUsuarioDTO update(@RequestBody @Valid UsuarioUpdateDTO u) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Integer idAuth = Integer.parseInt(auth.getCredentials().toString());
         return new RespuestaUsuarioDTO(usuariosService.update(idAuth, u));
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        usuariosService.delete(id);
+    public void delete() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Integer idAuth = Integer.parseInt(auth.getCredentials().toString());
+        usuariosService.delete(idAuth);
     }
 
     @GetMapping("canciones")

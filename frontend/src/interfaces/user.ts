@@ -18,6 +18,6 @@ export interface RegisterData {
     correo?: string;
     avatar?: string;
     password?: string;
-    cancionesFavoritas?: Song[];
+
     
 }

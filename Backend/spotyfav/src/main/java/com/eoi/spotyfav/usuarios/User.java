@@ -3,6 +3,7 @@ package com.eoi.spotyfav.usuarios;
 
 import com.eoi.spotyfav.songs.Song;
 import com.eoi.spotyfav.usuarios.dto.UsuarioDTO;
+import com.eoi.spotyfav.usuarios.dto.UsuarioUpdateDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,10 @@ public class User {
 
 
     static User fromDTO(UsuarioDTO usuarioDTO) {
+        return new User(0, usuarioDTO.getNombre(), usuarioDTO.getCorreo(), usuarioDTO.getPassword(), usuarioDTO.getAvatar(), null);
+    }
+
+    static User fromUpdateDTO(UsuarioUpdateDTO usuarioDTO) {
         return new User(0, usuarioDTO.getNombre(), usuarioDTO.getCorreo(), usuarioDTO.getPassword(), usuarioDTO.getAvatar(), null);
     }
 }

@@ -65,17 +65,5 @@ CREATE TABLE `user` (
 
 -- Dump completed on 2024-11-16 11:28:02
 
-INSERT INTO `user` (image_user, password_user, mail_user, name_user) VALUES
-('https://example.com/images/user1.jpg', 'password123', 'user1@example.com', 'Juan Perez'),
-('https://example.com/images/user2.jpg', 'securepass', 'user2@example.com', 'Ana Gomez'),
-('https://example.com/images/user3.jpg', 'mypassword', 'user3@example.com', 'Carlos Ruiz');
-
-INSERT INTO `favorite_song` (user_id, song_name, artist, album) VALUES
-(1, 'Imagine', 'John Lennon', 'Imagine'),
-(1, 'Bohemian Rhapsody', 'Queen', 'A Night at the Opera'),
-(2, 'Billie Jean', 'Michael Jackson', 'Thriller'),
-(2, 'Shape of You', 'Ed Sheeran', '÷'),
-(3, 'Yesterday', 'The Beatles', 'Help!'),
-(3, 'Thriller', 'Michael Jackson', 'Thriller');
 
 

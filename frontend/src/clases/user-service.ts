@@ -12,14 +12,14 @@ export class UserLoggedService {
         return resp.user;
     }
 
-    async updateUserLogged(user: RegisterData): Promise<UserLogged> {
+    async updateUserLogged(user: RegisterData): Promise<RegisterData> {
         const resp = await this.#http.put<UserLoggedResponse, RegisterData>(`${SERVER}/usuarios`, user);
 
         return resp.user;
     }
 
 
-    // deleteSong(id: number): Promise<void> {
-    //     return this.#http.delete<void>(`${SERVER}/songs/${id}`);
-    // }
+    async deleteUser(): Promise<void> {
+        return this.#http.delete<void>(`${SERVER}/usuarios`);
+    }
 }

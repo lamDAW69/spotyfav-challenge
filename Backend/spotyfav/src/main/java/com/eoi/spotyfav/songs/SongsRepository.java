@@ -13,6 +13,7 @@ public interface SongsRepository extends JpaRepository<Song, Integer> {
     List<Song> findBy();
     Song findSongById(int id);
     List<Song> findByCreador(int userId);
+    void deleteByCreador(int userId);
 
 
 }
