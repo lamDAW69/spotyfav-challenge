@@ -25,10 +25,10 @@ const cardContainer = document.getElementById(
 
 async function cargarSongs() {
   const songs = await songsService.getSongs();
-  songs.forEach(addEvento);
+  songs.forEach(addSong);
 }
 
-async function addEvento(song: Song) {
+async function addSong(song: Song) {
   const clone = eventoTemplate.content.cloneNode(true) as DocumentFragment;
   // Obtener el token de acceso de Spotify
   const token = await getSpotifyAccessToken();

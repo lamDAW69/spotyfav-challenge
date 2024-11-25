@@ -65,44 +65,10 @@ public class UsuariosService {
             }
 
 
-//        User userUpdate = User.fromUpdateDTO(usuarioDTO);
-//        userUpdate.setId(id);
-
         usuariosRepository.save(user);
         return usuariosRepository.findUsuarioById(user.getId());
     }
 
-//    public User update(int id, UsuarioUpdateDTO usuarioDTO) {
-//        User user = usuariosRepository.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-//        try {
-//            boolean esMismaPass = user.getPassword().equals(encodePassword(usuarioDTO.getPassword()));
-//
-//            if (esMismaPass) {
-//                if (usuarioDTO.getNombre().isEmpty()) {
-//                    user.setNombre(usuarioDTO.getNombre());
-//                }
-//                if (usuarioDTO.getCorreo().isEmpty()) {
-//                    user.setCorreo(usuarioDTO.getCorreo());
-//                }
-//                if (usuarioDTO.getAvatar().isEmpty()) {
-//                    // La imagen viene en Base64
-//                    usuarioDTO.setAvatar(imageUtils.saveImageBase64("usuarios", usuarioDTO.getAvatar()));
-//                    user.setAvatar(usuarioDTO.getAvatar());
-//                }
-//                usuariosRepository.save(user);
-//
-//
-////                user.setPassword(encodePassword(usuarioDTO.getPassword()));
-//            }
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("UsuarioDTO: " + usuarioDTO.getCorreo());
-//
-//
-//        return usuariosRepository.findUsuarioById(user.getId());
-//    }
 
     @Transactional
     public void delete(int idUsuario) {

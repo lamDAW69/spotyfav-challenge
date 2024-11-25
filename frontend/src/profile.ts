@@ -10,7 +10,7 @@ const formulario = document.getElementById("formRegister") as HTMLFormElement;
 formulario?.addEventListener("submit", async (song) => {
   song.preventDefault();
 
-  // const resp = await userLoggedService.getUserLogged();
+
 
   const nombre = (
     document.getElementById("nombre-modificado") as HTMLInputElement
